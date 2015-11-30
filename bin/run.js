@@ -10,7 +10,7 @@ function succeed(result) {
 }
 
 function fail(error) {
-  console.error(error);
+  console.error(error.stack);
   process.exit(1);
 }
 
