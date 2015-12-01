@@ -5,5 +5,5 @@ AWS Lambdas and EMR procedure for a city's events big data analysis
 
 ```
 lein uberjar
-java -cp hadoop1-standalone.jar clojure_hadoop.job -job hadoop1/job -input FILE -output out
+java -cp target/city-big-data-1.0-standalone.jar clojure_hadoop.job -job city-big-data.wordcount/job -input LICENSE -output out
 ```
