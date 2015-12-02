@@ -1,7 +1,10 @@
 /* @flow */
 
 import Promise from "promise";
+global.Promise = Promise;
+
 import fetch from "node-fetch";
+fetch.Promise = Promise;
 
 import {postInEs, esQuery} from "../lib/elasticsearch.js";
 
@@ -13,8 +16,6 @@ type StationsInEs = {
   index?: string,
   type?: string
 };
-
-fetch.Promise = Promise;
 
 const DEFAULT_VELOV_ENDPOINT =
   "https://download.data.grandlyon.com/ws/rdata/jcd_jcdecaux.jcdvelov/all.json";
@@ -59,15 +60,18 @@ export function stationsInEs({
         index || "velov",
         {
           bool: {
-            must: {
-              term: { number: doc.number }
-            },
-            filter: {
-              term: { measureTime: doc.measureTime }
-            }
+            must: [
+              {
+                term: { number: doc.number }
+              },
+              {
+                term: { measureTime: doc.measureTime }
+              }
+            ]
           }
         }
       )
+      .catch(err => /404/.test(err.message) ? [] : Promise.reject(err))
       .then(res => res.length === 0 ? doc : null)
     )
   ))
