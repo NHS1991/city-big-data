@@ -44,13 +44,13 @@ export function stationsInEs({
     .map(doc => ({
       number: doc.number,
       location: {
-        lat: doc.lat,
-        lon: doc.lng
+        lat: parseFloat(doc.lat),
+        lon: parseFloat(doc.lng)
       },
       stands: doc.bike_stands,
       availableStands: doc.available_bike_stands,
       availableBikes: doc.available_bikes,
-      measureTime: new Date(doc.last_update).getTime()
+      measureTime: new Date(doc.last_update).toISOString()
     }))
   )
   .then(docs => Promise.all(
