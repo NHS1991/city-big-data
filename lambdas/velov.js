@@ -47,9 +47,9 @@ export function stationsInEs({
         lat: parseFloat(doc.lat),
         lon: parseFloat(doc.lng)
       },
-      stands: doc.bike_stands,
-      availableStands: doc.available_bike_stands,
-      availableBikes: doc.available_bikes,
+      stands: parseInt(doc.bike_stands),
+      availableStands: parseInt(doc.available_bike_stands),
+      availableBikes: parseInt(doc.available_bikes),
       measureTime: new Date(doc.last_update).toISOString()
     }))
   )
