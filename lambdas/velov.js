@@ -1,5 +1,6 @@
 /* @flow */
 
+import Promise from "promise";
 import fetch from "node-fetch";
 
 import {postInEs, esQuery} from "../lib/elasticsearch.js";
@@ -12,6 +13,8 @@ type StationsInEs = {
   index?: string,
   type?: string
 };
+
+fetch.Promise = Promise;
 
 const DEFAULT_VELOV_ENDPOINT =
   "https://download.data.grandlyon.com/ws/rdata/jcd_jcdecaux.jcdvelov/all.json";
