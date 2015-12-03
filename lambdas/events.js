@@ -27,7 +27,7 @@ const s3 = new AWS.S3();
 
 const putS3Object = Promise.denodeify(s3.putObject);
 
-export function stationsInEs({
+export function eventsToS3({
   bucket,
   accessToken,
   polledEventEdges
