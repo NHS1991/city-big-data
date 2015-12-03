@@ -16,7 +16,11 @@ type EventsToS3 = {
 };
 
 const DEFAULT_POLLED_EDGES = [
-  "https://api.facebook.com/v2.5/me/events?fields=id,name,place,attending_count,end_time,interested_count,maybe_count,noreply_count,category,description,cover,start_time&limit=100"
+  "https://graph.facebook.com/v2.5/me/events?fields=id,name,place,attending_count,end_time,interested_count,maybe_count,noreply_count,category,description,cover,start_time&limit=100&type=attending",
+  "https://graph.facebook.com/v2.5/me/events?fields=id,name,place,attending_count,end_time,interested_count,maybe_count,noreply_count,category,description,cover,start_time&limit=100&type=created",
+  "https://graph.facebook.com/v2.5/me/events?fields=id,name,place,attending_count,end_time,interested_count,maybe_count,noreply_count,category,description,cover,start_time&limit=100&type=declined",
+  "https://graph.facebook.com/v2.5/me/events?fields=id,name,place,attending_count,end_time,interested_count,maybe_count,noreply_count,category,description,cover,start_time&limit=100&type=maybe",
+  "https://graph.facebook.com/v2.5/me/events?fields=id,name,place,attending_count,end_time,interested_count,maybe_count,noreply_count,category,description,cover,start_time&limit=100&type=not_replied",
 ];
 
 const DEFAULT_ACCESS_TOKEN = "";
@@ -25,7 +29,7 @@ const DEFAULT_BUCKET = "prjs-badr.fb-src";
 
 const s3 = new AWS.S3();
 
-const putS3Object = Promise.denodeify(s3.putObject);
+const putS3Object = Promise.denodeify(s3.putObject.bind(s3));
 
 export function eventsToS3({
   bucket,
